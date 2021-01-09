@@ -1,0 +1,29 @@
+{
+  "name": "LinkPacket",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Chrome Extension for LinkPacket",
+  "icons": {
+    "16": "icons/icon.png",
+    "48": "icons/icon.png",
+    "128": "icons/icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://scrapbox.io/takahashinaoki5-18795218/%E3%83%8D%E3%82%BF%E5%B8%B3"
+      ],
+      "js": [
+        "popup/popup.js",
+        "popup/popup.js"
+      ]
+    }
+  ],
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/icon.png"
+    },
+    "default_title": "LinkPacketにブクマする",
+    "default_popup": "popup/popup.html"
+  }
+}

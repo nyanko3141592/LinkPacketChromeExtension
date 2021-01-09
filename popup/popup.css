@@ -1,0 +1,19 @@
+body {
+  width: 300px;
+  min-height: 40px;
+  text-align: center; }
+  body .header {
+    height: 20px;
+    width: 100%;
+    border-bottom: solid 3px #8A8C8E; }
+    body .header .logo {
+      height: 100%; }
+    body .header .icon {
+      height: 100%; }
+  body .card {
+    width: 260px;
+    height: 30px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 1px 0 rgba(66, 66, 66, 0.08), 0 1px 3px 1px rgba(66, 66, 66, 0.16); }
+
+/*# sourceMappingURL=popup.css.map */
