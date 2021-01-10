@@ -1,8 +1,12 @@
+@charset "UTF-8";
 body {
   width: 300px;
   min-height: 100px;
   padding: 0;
-  text-align: center; }
+  text-align: center;
+  /* チェックボックスの代わりを成すラベル */
+  /* ラベルの左に表示させる正方形のボックス□ */
+  /* チェックが入った時のレ点 */ }
   body font {
     size: 15px; }
   body .header {
@@ -26,8 +30,8 @@ body {
     margin-bottom: 0;
     padding-top: 0;
     padding-left: 10px;
-    height: 30px;
-    font-size: 15px; }
+    height: 20px;
+    font-size: 17px; }
   body .btn-square {
     margin: 10px;
     display: inline-block;
@@ -60,5 +64,44 @@ body {
       margin: 0; }
     body .show-here .url {
       font-size: 5px; }
+  body .mycheckbox input[type="checkbox"] {
+    display: none; }
+  body .mycheckbox input[type="checkbox"] + label {
+    display: none;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    padding-left: 25px;
+    padding-right: 10px; }
+  body .mycheckbox input[type="checkbox"] + label::before {
+    content: "";
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    left: 0;
+    top: 50%;
+    border: 1px solid;
+    border-color: #585753;
+    /* 枠の色変更 お好きな色を */
+    background-color: #FFF;
+    /* 背景の色変更 お好きな色を */ }
+  body .mycheckbox input[type="checkbox"]:checked + label::after {
+    content: "";
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    width: 18px;
+    height: 9px;
+    margin-top: -9px;
+    top: 50%;
+    left: 3px;
+    transform: rotate(-45deg);
+    border-bottom: 3px solid;
+    border-left: 3px solid;
+    border-color: #585753;
+    /* チェックの色変更 お好きな色を */ }
 
 /*# sourceMappingURL=popup.css.map */
