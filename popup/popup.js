@@ -21,16 +21,16 @@ window.onload = function () {
 
     if (userPacketsUuids.length === 0) {
         //　新規リストを作成する(LPに飛ばす)
-        let linkCard = "<section class=\"card\"><label>Make New Your Bookmark Packet!</label></section>"
-        $("#packets").append(linkCard);
+        // let linkCard = "<label href=\"#\" class=\"btn-square\" id=\"jumpLP\">Make New Packte</label>"
+        // $("#packets").append(linkCard);
         $("#submit").remove()
     } else {
+        $("#jumpLP").remove()
         //    リストを並べる
         let card = "   <section class=\"card\">\n" +
             "        <label for=\"@\"></label><input id=\"@\" type=\"checkbox\"/>\n" +
             "        <label for=\"@\">Title</label>\n" +
             "    </section>"
-
         for (let i = 0; i < userPacketsUuids.length; i++) {
             console.log(packetNames[i]);
             $("#packets").append(card.replace("@", userPacketsUuids[i]).replace("Title", packetNames[i]));
@@ -47,4 +47,14 @@ document.getElementById("submit").onclick = function () {
 
     //    API正常に叩けた表示
 
+};
+
+
+//submitボタンを押された時の処理
+document.getElementsByClassName("jumpLP").onclick = function () {
+    console.log("move to LP")
+    chrome.tabs.query({'active': true}, function (tabs) {
+        chrome.tabs.update(tabs[0].id, {url: "https://linkpacket.web.app/"});
+    });
+    someOtherFunction();
 };
