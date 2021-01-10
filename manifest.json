@@ -8,16 +8,8 @@
     "48": "icons/icon.png",
     "128": "icons/icon.png"
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "https://scrapbox.io/takahashinaoki5-18795218/%E3%83%8D%E3%82%BF%E5%B8%B3"
-      ],
-      "js": [
-        "popup/popup.js",
-        "popup/popup.js"
-      ]
-    }
+  "permissions": [
+    "tabs"
   ],
   "browser_action": {
     "default_icon": {

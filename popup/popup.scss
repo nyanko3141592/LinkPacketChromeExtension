@@ -2,33 +2,110 @@ $gray: #8A8C8E;
 $yellow: #F6B40D;
 $blue: #1E4775;
 $white: #FFFFFF;
+$card-height: 30px;
 
 body {
+  font {
+    size: 15px;
+  }
+
   width: 300px;
-  min-height: 40px;
+  min-height: 100px;
+  padding: 0;
   text-align: center;
 
   .header {
-    height: 20px;
+    height: $card-height;
     width: 100%;
+    margin: 0;
     border: {
       bottom: solid 3px $gray;
     };
 
     .logo {
       height: 100%;
+      margin: {
+        left: 0;
+      };
     }
 
     .icon {
       height: 100%;
+      margin: {
+        right: 0;
+      };
     }
   }
 
-  .card {
-    width: 260px;
-    height: 30px;
-    background-color: $white;
+  .packets {
+    margin: {
+      top: 10px;
+    };
+  }
 
-    box-shadow: 0 1px 1px 0 rgba(66, 66, 66, 0.08), 0 1px 3px 1px rgba(66, 66, 66, 0.16);
+  .card {
+    text-align: left;
+    margin: {
+      right: 10px;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+    };
+    padding: {
+      top: 0;
+      left: 10px;
+    };
+    height: $card-height;
+    font: {
+      size: 15px;
+    };
+  }
+
+  .card :hover {
+  }
+
+  .btn-square {
+    margin: 10px;
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: $yellow;
+    color: #FFF;
+    font-size: 15px;
+    border-radius: 5px;
+  }
+
+  .btn-square:active {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+    border-bottom: none;
+  }
+
+  .show-here {
+    font-size: 15px;
+    text-align: left;
+    width: 295px;
+    margin: {
+      top: 10px;
+    };
+    padding: {
+      left: 5px;
+    };
+    border: solid 2px $gray;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis; /* Safari */
+    -o-text-overflow: ellipsis; /* Opera */
+    border-radius: 5px;
+
+    p {
+      margin: 0;
+    }
+
+    .url {
+      font-size: 5px;
+    }
+
   }
 }
