@@ -21,8 +21,6 @@ window.onload = function () {
 
     if (userPacketsUuids.length === 0) {
         //　新規リストを作成する(LPに飛ばす)
-        // let linkCard = "<label href=\"#\" class=\"btn-square\" id=\"jumpLP\">Make New Packte</label>"
-        // $("#packets").append(linkCard);
         $("#submit").remove()
     } else {
         $("#jumpLP").remove()
@@ -36,6 +34,13 @@ window.onload = function () {
             $("#packets").append(card.replace("@", userPacketsUuids[i]).replace("Title", packetNames[i]));
         }
     }
+    // jump LP
+    const els = document.getElementsByClassName("jumpLP")
+    for (let i = 0; i < els.length; i++) {
+        console.log(document.getElementsByClassName("jumpLP")[i])
+        document.getElementsByClassName("jumpLP")[i].addEventListener("click", jumpToLP, false);
+    }
+    console.log(els)
 };
 
 //submitボタンを押された時の処理
@@ -50,11 +55,10 @@ document.getElementById("submit").onclick = function () {
 };
 
 
-//submitボタンを押された時の処理
-document.getElementsByClassName("jumpLP").onclick = function () {
+//jump to LP
+function jumpToLP() {
     console.log("move to LP")
     chrome.tabs.query({'active': true}, function (tabs) {
         chrome.tabs.update(tabs[0].id, {url: "https://linkpacket.web.app/"});
     });
-    someOtherFunction();
-};
+}
