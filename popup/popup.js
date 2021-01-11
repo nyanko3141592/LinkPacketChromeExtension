@@ -3,6 +3,28 @@ let nowTitle = "";
 let userPacketsUuids = [];
 let packetNames = [];
 
+// Firebaseの初期化
+const firebaseConfig = {
+    apiKey: "AIzaSyBKzJzgdoqim8ZwR_6LpVd4iS9MGM_41kw",
+    authDomain: "link-packet.firebaseapp.com",
+    projectId: "link-packet",
+    storageBucket: "link-packet.appspot.com",
+    messagingSenderId: "75094459461",
+    appId: "1:75094459461:web:70e7159120515644a44f2c",
+    measurementId: "G-759CSS30HY"
+};
+firebase.initializeApp(firebaseConfig);
+
+// 認証処理
+const provider = new firebase.auth.GoogleAuthProvider()
+provider.addScope('https://www.googleapis.com/auth/userinfo.email');
+firebase.auth().useDeviceLanguage()
+firebase.auth().signInWithPopup(provider).then(function (result) {
+    console.log('userInfo: ' + JSON.stringify(result.user))
+}).catch(function (error) {
+    console.log(error)
+});
+
 window.onload = function () {
     chrome.tabs.getSelected(null, function (tab) {
         // 　　現在のサイトの表示

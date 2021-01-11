@@ -23,7 +23,22 @@
 <a href="#" class="btn-square" id="submit">リストに追加</a>
 <label class="btn-square" id="makeNew"><a class="jumpLP">Make New Packtet</a></label>
 
+<!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script type="text/javascript" src="../js/firebase-app.js"></script>
+
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script type="text/javascript" src="../js/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script type="text/javascript" src="../js/firebase-auth.js"></script>
+<script type="text/javascript" src="../js/firebase-firestore.js"></script>
+
+
 <script src="../js/jquery-3.5.1.min.js"></script>
-<script type="text/javascript" src="popup.js"></script>
+<script type="module" src="popup.js"></script>
+
+
 </body>
 </html>
