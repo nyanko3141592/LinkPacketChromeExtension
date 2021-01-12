@@ -2,8 +2,10 @@ let nowUrl = "";
 let nowTitle = "";
 let userPacketsUuids = [];
 let packetNames = [];
+console.log(location.href)
 
-// Firebaseの初期化
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyBKzJzgdoqim8ZwR_6LpVd4iS9MGM_41kw",
     authDomain: "link-packet.firebaseapp.com",
@@ -13,6 +15,7 @@ const firebaseConfig = {
     appId: "1:75094459461:web:70e7159120515644a44f2c",
     measurementId: "G-759CSS30HY"
 };
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 // 認証処理
