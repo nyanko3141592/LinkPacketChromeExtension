@@ -476,3 +476,4 @@ node_modules/protobufjs/src/rpc/service.js
 node_modules/protobufjs/src/util/longbits.js
 node_modules/protobufjs/src/util/minimal.js
 node_modules/websocket-driver/lib/websocket/driver/base.js
+popup/stack.js

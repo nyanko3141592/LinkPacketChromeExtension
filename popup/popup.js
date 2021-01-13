@@ -19,7 +19,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 console.log(db)
-// showList()
 
 firebase.auth().onAuthStateChanged((user) => {
     if (!user) {
