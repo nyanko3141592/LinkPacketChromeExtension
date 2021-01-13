@@ -44,15 +44,17 @@ body {
   }
 
   .card {
+    border: solid 1px #8A8C8E;
     text-align: left;
     margin: {
       right: 10px;
       left: 10px;
-      top: 0;
+      top: 5px;
       bottom: 0;
     };
     padding: {
       top: 0;
+      bottom: 5px;
       left: 10px;
     };
     height: 20px;

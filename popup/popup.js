@@ -2,7 +2,7 @@ let nowUrl = "";
 let nowTitle = "";
 let userPacketsUuids = [];
 let packetNames = [];
-console.log(location.href)
+let name, email, photoUrl, uid, emailVerified;
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -17,91 +17,99 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+console.log(db)
+// showList()
 
-// 認証処理
-const provider = new firebase.auth.GoogleAuthProvider()
-provider.addScope('https://www.googleapis.com/auth/userinfo.email');
-firebase.auth().useDeviceLanguage()
-firebase.auth().signInWithPopup(provider).then(function (result) {
-    console.log('userInfo: ' + JSON.stringify(result.user))
-}).catch(function (error) {
-    console.log(error)
-});
+firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+        // 認証処理
+        const provider = new firebase.auth.GoogleAuthProvider()
+        provider.addScope('https://www.googleapis.com/auth/userinfo.email');
+        firebase.auth().useDeviceLanguage()
+        firebase.auth().signInWithPopup(provider).then(function (result) {
+            console.log('userInfo: ' + JSON.stringify(result.user))
+        }).catch(function (error) {
+            console.log(error)
+        });
+        location.href = '/signin.html';
+        console.log(name, email)
+    } else {
+        // サインイン済み
+        console.log("have signed in")
+        const user = firebase.auth().currentUser;
+        console.log(user)
+        if (user != null) {
+            name = user.displayName;
+            email = user.email;
+            photoUrl = user.photoURL;
+            emailVerified = user.emailVerified;
+            uid = user.uid;
+            console.log(name, uid)
+        }
+        let docRef = db.collection("users").doc(uid);
+        docRef.get().then(function (doc) {
+            if (doc.exists) {
+                //所有packetの一覧
+                let packetPath = doc.data()["packetRefs"];
+                if (packetPath.length === 0) {
+                    //　新規リストを作成する(LPに飛ばす)
+                    $("#submit").remove()
+                } else {
+                    $("#makeNew").remove()
+                }
+                console.log("Document data:", packetPath)
+                //packetsのタイトルを取得する
+                packetPath.forEach(packet => {
+                    let packetRefs = db.collection("packets").doc(packet.replace('packets/', ''));
+                    let id = packet.replace('packets/', '')
+                    packetRefs.get().then(function (doc2) {
+                        console.log(packet)
+                        userPacketsUuids.push(packet)
+                        if (doc2.exists) {
+                            console.log("Title", doc2.data()['title']);
+                            console.log("ID", id);
+                            packetNames.push(doc2.data()['title'])
+                            makeCard(id, doc2.data()['title'])
+                        } else {
+                            console.log("No such document!");
+                        }
+                    }).catch(function (error) {
+                        console.log("Error getting document:", error);
+                    });
+                })
+            } else {
+                console.log("No such document!");
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        });
+    }
+})
+
+//並べる
+function showList(userPacketsUuids, packetNames) {
+    for (let i = 0; i < userPacketsUuids.length; i++) {
+        makeCard(userPacketsUuids[i], packetNames[i])
+    }
+}
 
 window.onload = function () {
-    chrome.tabs.getSelected(null, function (tab) {
-        // 　　現在のサイトの表示
-        nowUrl = tab.url;
-        nowTitle = tab.title;
-        document.getElementById("now-title").innerText = nowTitle;
-        document.getElementById("now-url").innerText = nowUrl;
-    });
-    //    APIでパケットリストを取得
-    userPacketsUuids = ["neko", "dog"];
-    // userPacketsUuids = [];
-    packetNames = [];
-    userPacketsUuids.forEach(uuid => {
-        //TODO タイトルに差し替える
-        packetNames.push("a");
-    })
-    //代替のリスト
-    packetNames = ["ねこ", "いぬ"];
-
-
-    if (userPacketsUuids.length === 0) {
-        //　新規リストを作成する(LPに飛ばす)
-        $("#submit").remove()
-    } else {
-        $("#makeNew").remove()
-        //    リストを並べる
-        let card = "   <section class=\"card\">\n" +
-            "        <label for=\"@\"></label><input id=\"@\" type=\"checkbox\" name=\"checkbox\"/>\n" +
-            "        <label for=\"@\">Title</label>\n" +
-            "    </section>"
-        for (let i = 0; i < userPacketsUuids.length; i++) {
-            console.log(packetNames[i]);
-            $("#packets").append(card.replaceAll("@", userPacketsUuids[i]).replaceAll("Title", packetNames[i]));
-        }
-    }
-    // jump LP
-    const els = document.getElementsByClassName("jumpLP")
-    for (let i = 0; i < els.length; i++) {
-        console.log(document.getElementsByClassName("jumpLP")[i])
-        document.getElementsByClassName("jumpLP")[i].addEventListener("click", jumpToLP, false);
-    }
-    console.log(els)
 };
 
-//submitボタンを押された時の処理
-document.getElementById("submit").onclick = function () {
-    console.log('Submit');
-    //    選択されたリストの取得
-    let checked = getChecked()
-    //    API叩く
-
-    //    API正常に叩けた表示
-
-};
-
-
-//jump to LP
-function jumpToLP() {
-    console.log("move to LP")
-    chrome.tabs.query({'active': true}, function (tabs) {
-        chrome.tabs.update(tabs[0].id, {url: "https://linkpacket.web.app/"});
-    });
+function makeCard(userPacketsUuid, packetName) {
+    let card = "   <section class=\"card\">\n" +
+        "        <label for=\"@\"></label><input id=\"@\" type=\"checkbox\" name=\"checkbox\"/>\n" +
+        "        <label for=\"@\">Title</label>\n" +
+        "    </section>"
+    $("#packets").append(card.replaceAll("@", userPacketsUuid).replaceAll("Title", packetName.slice(0, 13)));
+    // $("#packets").append(card.replaceAll("@", userPacketsUuid).replaceAll("Title", packetName).slice(0, 20));
 }
 
-// checked
-function getChecked() {
-    let checked = [];
-    const chechboxs = document.getElementsByName("checkbox");
-
-    for (let i = 0; i < chechboxs.length; i++) {
-        if (chechboxs[i].checked) {
-            checked.push(chechboxs[i].id);
-        }
-    }
-    console.log(checked);
-    return checked
-}
+chrome.tabs.getSelected(null, function (tab) {
+    // 　　現在のサイトの表示
+    nowUrl = tab.url;
+    nowTitle = tab.title;
+    document.getElementById("now-title").innerText = nowTitle;
+    document.getElementById("now-url").innerText = nowUrl;
+});
