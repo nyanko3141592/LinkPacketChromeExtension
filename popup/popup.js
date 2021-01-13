@@ -112,3 +112,40 @@ chrome.tabs.getSelected(null, function (tab) {
     document.getElementById("now-title").innerText = nowTitle;
     document.getElementById("now-url").innerText = nowUrl;
 });
+
+// checked
+document.getElementById('submit').onclick = function getChecked() {
+    let checked = [];
+    const checkbox = document.getElementsByName("checkbox");
+
+    for (let i = 0; i < checkbox.length; i++) {
+        if (checkbox[i].checked) {
+            console.log('CHECKED', checkbox[i].id);
+            checked.push(checkbox[i].id);
+            let id = checkbox[i].id
+            let packetRefs = db.collection("packets").doc(id);
+            packetRefs.get().then(function (doc2) {
+                console.log(id)
+                if (doc2.exists) {
+                    let urls = doc2.data()['urls']
+                    console.log("Title", doc2.data()['urls']);
+                    urls.push({'link': nowUrl, 'title': nowTitle})
+                    console.log(urls);
+                    db.collection('packets').doc(id).update({
+                        urls: firebase.firestore.FieldValue.arrayUnion({'link': nowUrl, 'title': nowTitle})
+                    })
+                    // db.collection("packets").doc(id).update(urls)
+                    //     .then(function() {
+                    //         console.log("Document successfully updated!");
+                    //     });
+                } else {
+                    console.log("No such document!");
+                }
+            }).catch(function (error) {
+                console.log("Error getting document:", error);
+            });
+        }
+    }
+    console.log(checked);
+    return checked
+}
