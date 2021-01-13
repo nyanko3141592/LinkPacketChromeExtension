@@ -134,10 +134,7 @@ document.getElementById('submit').onclick = function getChecked() {
                     db.collection('packets').doc(id).update({
                         urls: firebase.firestore.FieldValue.arrayUnion({'link': nowUrl, 'title': nowTitle})
                     })
-                    // db.collection("packets").doc(id).update(urls)
-                    //     .then(function() {
-                    //         console.log("Document successfully updated!");
-                    //     });
+                    $('#float').append('<div class="float-card"><a href="" class="btn btn-flat"><span>追加しました</span></a></div>')
                 } else {
                     console.log("No such document!");
                 }

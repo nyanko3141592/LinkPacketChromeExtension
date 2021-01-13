@@ -62,5 +62,22 @@ body {
       margin: 0; }
     body .show-here .url {
       font-size: 5px; }
+  body .float-card {
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    border: solid 3px #F6B40D;
+    background: white; }
+  body a.btn-flat {
+    overflow: hidden;
+    bottom: 10px;
+    color: #F6B40D;
+    font-size: 20px; }
+  body a.btn-flat span {
+    position: relative; }
 
 /*# sourceMappingURL=popup.css.map */
