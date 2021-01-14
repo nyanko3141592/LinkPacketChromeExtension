@@ -51,12 +51,6 @@ firebase.auth().onAuthStateChanged((user) => {
             if (doc.exists) {
                 //所有packetの一覧
                 let packetPath = doc.data()["packetRefs"];
-                if (packetPath.length === 0) {
-                    //　新規リストを作成する(LPに飛ばす)
-                    $("#submit").remove()
-                } else {
-                    $("#makeNew").remove()
-                }
                 let packetIds = [];
                 packetPath.forEach(ref => {
                     console.log(ref.id)
