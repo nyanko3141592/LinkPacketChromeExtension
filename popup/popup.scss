@@ -40,6 +40,7 @@ body {
   .packets {
     margin: {
       top: 10px;
+      bottom: 10px;
     };
   }
 
@@ -49,7 +50,7 @@ body {
     margin: {
       right: 10px;
       left: 10px;
-      top: 5px;
+      top: 10px;
       bottom: 0;
     };
     padding: {
@@ -86,12 +87,16 @@ body {
   .show-here {
     font-size: 15px;
     text-align: left;
-    width: 295px;
+
     margin: {
+      right: 10px;
+      left: 10px;
       top: 10px;
+      bottom: 0;
     };
     padding: {
       left: 5px;
+      bottom: 3px;
     };
     border: solid 2px $gray;
     white-space: nowrap;
@@ -113,17 +118,18 @@ body {
 
   .float-card {
     position: absolute;
-    width: 80%;
-    left: 10%;
+    width: 200px;
+    left: 60px;
     bottom: 10px;
     padding: {
-      top:20px;
+      top: 20px;
       bottom: 10px;
     };
     border-radius: 5px;
     border: solid 3px $yellow;
     background: white;
   }
+
   a.btn-flat {
     overflow: hidden;
     bottom: 10px;
@@ -135,4 +141,24 @@ body {
     position: relative;
   }
 
+  .input-card {
+    background-color: #CCCCCC;
+    height: 20px;
+    border: none;
+    color: black;
+    padding: {
+      bottom: 10px;
+    };
+    label{
+      background-color:rgba(0,0,0,0);
+    }
+    input{
+      background-color:rgba(0,0,0,0);
+      border: none;
+    }
+  }
+
+  .new-packet-add {
+
+  }
 }

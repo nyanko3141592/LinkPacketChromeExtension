@@ -17,13 +17,14 @@ body {
       height: 100%;
       margin-right: 0; }
   body .packets {
-    margin-top: 10px; }
+    margin-top: 10px;
+    margin-bottom: 10px; }
   body .card {
     border: solid 1px #8A8C8E;
     text-align: left;
     margin-right: 10px;
     margin-left: 10px;
-    margin-top: 5px;
+    margin-top: 10px;
     margin-bottom: 0;
     padding-top: 0;
     padding-bottom: 5px;
@@ -46,9 +47,12 @@ body {
   body .show-here {
     font-size: 15px;
     text-align: left;
-    width: 295px;
+    margin-right: 10px;
+    margin-left: 10px;
     margin-top: 10px;
+    margin-bottom: 0;
     padding-left: 5px;
+    padding-bottom: 3px;
     border: solid 2px #8A8C8E;
     white-space: nowrap;
     overflow: hidden;
@@ -64,8 +68,8 @@ body {
       font-size: 5px; }
   body .float-card {
     position: absolute;
-    width: 80%;
-    left: 10%;
+    width: 200px;
+    left: 60px;
     bottom: 10px;
     padding-top: 20px;
     padding-bottom: 10px;
@@ -79,5 +83,16 @@ body {
     font-size: 20px; }
   body a.btn-flat span {
     position: relative; }
+  body .input-card {
+    background-color: #CCCCCC;
+    height: 20px;
+    border: none;
+    color: black;
+    padding-bottom: 10px; }
+    body .input-card label {
+      background-color: rgba(0, 0, 0, 0); }
+    body .input-card input {
+      background-color: rgba(0, 0, 0, 0);
+      border: none; }
 
 /*# sourceMappingURL=popup.css.map */

@@ -57,10 +57,15 @@ firebase.auth().onAuthStateChanged((user) => {
                 } else {
                     $("#makeNew").remove()
                 }
+                let packetIds = [];
+                packetPath.forEach(ref => {
+                    console.log(ref.id)
+                    packetIds.push(ref.id)
+                })
                 console.log("Document data:", packetPath)
                 //packetsのタイトルを取得する
-                packetPath.forEach(packet => {
-                    let packetRefs = db.collection("packets").doc(packet.replace('packets/', ''));
+                packetIds.forEach(packet => {
+                    let packetRefs = db.collection("packets").doc(packet);
                     let id = packet.replace('packets/', '')
                     packetRefs.get().then(function (doc2) {
                         console.log(packet)
@@ -117,7 +122,6 @@ chrome.tabs.getSelected(null, function (tab) {
 document.getElementById('submit').onclick = function getChecked() {
     let checked = [];
     const checkbox = document.getElementsByName("checkbox");
-
     for (let i = 0; i < checkbox.length; i++) {
         if (checkbox[i].checked) {
             console.log('CHECKED', checkbox[i].id);
@@ -143,6 +147,32 @@ document.getElementById('submit').onclick = function getChecked() {
             });
         }
     }
+    let input_message = document.getElementById("new-packet").value;
+    if (input_message !== '') {
+        // Add a new document with a generated id.
+        db.collection("packets").add({
+            title: input_message,
+            postedDate: firebase.firestore.Timestamp.now(),
+            urls: [{'link': nowUrl, 'title': nowTitle}],
+            userRef: db.collection('users').doc(uid),
+            id: ''
+        })
+            .then(function (docRef) {
+                db.collection('packets').doc(docRef.id).update({
+                    id: docRef.id
+                })
+                db.collection('users').doc(uid).update({
+                    packetRefs: firebase.firestore.FieldValue.arrayUnion(db.collection('packets').doc(docRef.id))
+                })
+                console.log("Document written with ID: ", docRef.id);
+                if (checked.length === 0) {
+                    $('#float').append('<div class="float-card"><a href="" class="btn btn-flat"><span>追加しました</span></a></div>')
+                }
+            })
+            .catch(function (error) {
+                console.error("Error adding document: ", error);
+            });
+    }
     console.log(checked);
-    return checked
+    console.log(input_message)
 }
