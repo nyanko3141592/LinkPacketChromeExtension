@@ -31,7 +31,7 @@ firebase.auth().onAuthStateChanged((user) => {
         }).catch(function (error) {
             console.log(error)
         });
-        location.href = '/signin.html';
+        // location.href = '/signin.html';
         console.log(name, email)
     } else {
         // サインイン済み
