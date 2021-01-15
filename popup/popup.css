@@ -14,7 +14,7 @@ body {
       height: 100%;
       margin-left: 45px;
       margin-right: 40px; }
-    body .header .logout {
+    body .header #logout {
       height: 20px;
       margin-bottom: 3px; }
     body .header .icon {

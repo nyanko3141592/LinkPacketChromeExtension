@@ -172,9 +172,19 @@ document.getElementById('submit').onclick = function getChecked() {
 }
 
 //jump to LP
-document.getElementById('jump-lp').onclick = function(){
+document.getElementById('jump-lp').onclick = function () {
     console.log("move to LP")
     chrome.tabs.query({'active': true}, function (tabs) {
         chrome.tabs.update(tabs[0].id, {url: "https://link-packet.web.app/users/" + uid});
+    });
+}
+
+//logout
+document.getElementById('logout').onclick = function () {
+    console.log("logout")
+    firebase.auth().signOut().then(function () {
+        // Sign-out successful.
+    }).catch(function (error) {
+        // An error happened.
     });
 }
