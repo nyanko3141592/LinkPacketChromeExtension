@@ -25,7 +25,15 @@ body {
     .logo {
       height: 100%;
       margin: {
-        left: 0;
+        left: 45px;
+        right: 40px;
+      };
+    }
+
+    #logout {
+      height: 20px;
+      margin: {
+        bottom: 3px;
       };
     }
 
