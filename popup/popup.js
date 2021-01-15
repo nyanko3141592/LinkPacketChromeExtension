@@ -170,3 +170,11 @@ document.getElementById('submit').onclick = function getChecked() {
     console.log(checked);
     console.log(input_message)
 }
+
+//jump to LP
+document.getElementById('jump-lp').onclick = function(){
+    console.log("move to LP")
+    chrome.tabs.query({'active': true}, function (tabs) {
+        chrome.tabs.update(tabs[0].id, {url: "https://link-packet.web.app/users/" + uid});
+    });
+}
